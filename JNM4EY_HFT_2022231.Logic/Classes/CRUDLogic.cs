@@ -16,9 +16,9 @@ namespace Logic.Classes
             _repo = repo;   
         }
 
-        public void Create(T entity)
+        public int Create(T entity)
         {
-            _repo.Create(entity);
+            return _repo.Create(entity);
         }
 
         public T Read(int id)

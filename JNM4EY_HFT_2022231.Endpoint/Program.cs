@@ -1,4 +1,5 @@
 using Data;
+using JNM4EY_HFT_2022231.Endpoint.Services;
 using JNM4EY_HFT_2022231.Models;
 using JNM4EY_HFT_2022231.Repository;
 using Logic.Classes;
@@ -28,6 +29,10 @@ builder.Services.AddTransient<IRepository<Agenda>, AgendaRepository>();
 builder.Services.AddTransient<IUserLogic, UserLogic>();
 builder.Services.AddTransient<ITodoLogic, TodoLogic>();
 builder.Services.AddTransient<IAgendaLogic, AgendaLogic>();
+
+builder.Services.AddSignalR();
+builder.Services.AddControllers();
+
 
 builder.Services.AddSwaggerGen();
 

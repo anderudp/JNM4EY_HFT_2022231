@@ -16,10 +16,11 @@ namespace JNM4EY_HFT_2022231.Repository
             _db = db;
         }
 
-        public void Create(User entity)
+        public int Create(User entity)
         {
             _db.Users.Add(entity);
             _db.SaveChanges();
+            return entity.UserId;
         }
 
         public User Read(int id)

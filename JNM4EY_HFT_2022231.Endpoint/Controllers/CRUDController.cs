@@ -1,4 +1,5 @@
-﻿using Logic.Classes;
+﻿using JNM4EY_HFT_2022231.Endpoint.Services;
+using Logic.Classes;
 using Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -9,17 +10,19 @@ namespace Endpoint.Controllers
     public class CRUDController<T> : ControllerBase where T : class
     {
         private ICRUDLogic<T> _logic;
+        IHubContext<SignalRHub> hub;
 
-        public CRUDController(ICRUDLogic<T> logic)
+        public CRUDController(ICRUDLogic<T> logic, IHubContext<SignalRHub> hub)
         {
             _logic = logic;
+            this.hub = hub;
         }
 
         [HttpPost]
-        public void Create([FromBody] T value)
+        public int Create([FromBody] T value)
         {
-            _logic.Create(value);
-            //_hub.Clients.All.SendAsync($"{typeof(T).FullName}Created", value);
+            hub.Clients.All.SendAsync($"{typeof(T).FullName}Created", value);
+            return _logic.Create(value);
         }
 
         [HttpGet]
@@ -38,7 +41,7 @@ namespace Endpoint.Controllers
         public void Update([FromBody] T value)
         {
             _logic.Update(value);
-            //_hub.Clients.All.SendAsync($"{typeof(T).FullName}Updated", value);
+            hub.Clients.All.SendAsync($"{typeof(T).FullName}Updated", value);
         }
 
         [HttpDelete("{id}")]
@@ -46,7 +49,7 @@ namespace Endpoint.Controllers
         {
             var toDelete = _logic.Read(id);
             _logic.Delete(id);
-            //_hub.Clients.All.SendAsync($"{typeof(T).FullName}Deleted", toDelete);
+            hub.Clients.All.SendAsync($"{typeof(T).FullName}Deleted", toDelete);
         }
     }
 }

@@ -18,10 +18,11 @@ namespace Repository
             _db = db;
         }
 
-        public void Create(Agenda entity)
+        public int Create(Agenda entity)
         {
             _db.Agendas.Add(entity);
             _db.SaveChanges();
+            return entity.AgendaId;
         }
 
         public Agenda Read(int id)

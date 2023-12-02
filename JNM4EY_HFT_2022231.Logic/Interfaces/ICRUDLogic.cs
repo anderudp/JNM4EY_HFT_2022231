@@ -8,7 +8,7 @@ namespace Logic.Interfaces
 {
     public interface ICRUDLogic <T> where T : class  
     {
-        void Create(T entity);
+        int Create(T entity);
         IEnumerable<T> ReadAll();
         T Read(int id);
         void Update(T entity);

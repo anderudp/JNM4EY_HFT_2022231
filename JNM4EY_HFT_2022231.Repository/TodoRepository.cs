@@ -17,10 +17,11 @@ namespace Repository
             _db = db;
         }
 
-        public void Create(Todo entity)
+        public int Create(Todo entity)
         {
             _db.Todos.Add(entity);
             _db.SaveChanges();
+            return entity.TodoId;
         }
         public Todo Read(int id)
         {
